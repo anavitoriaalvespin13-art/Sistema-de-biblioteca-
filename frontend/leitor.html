@@ -4,48 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/frontend/css/leitor.css">
+    <link rel="stylesheet" href="/Biblioteca/frontend/css/leitor.css">
     <link rel="stylesheet" href="/frontend/css/pagina.css">
     <script defer src="./js/leitor.js"></script>
-    <title>leitor</title>
+    <title>Leitor</title>
 </head>
 
 <body>
 
     <div class="fundoModal" id="fundoModal">
-     <div class="novoEmprestimo" id="modal">
-           <div class="tituloModal">
-            <div>
-            <h1>Solicitar livro</h1>
-            <p>Informe os dados necessários para solicitar o emprestimo</p>
-          </div>
-            <button onclick="fecharModal(event)">Fechar</button>
+        <div class="novoEmprestimo" id="modal">
+            <div class="tituloModal">
+                <div>
+                    <h1>Solicitar livro</h1>
+                    <p>Informe os dados necessários para solicitar o empréstimo</p>
+                </div>
+                <button onclick="fecharModal(event)">Fechar</button>
+            </div>
+
+            <hr class="linha">
+
+            <form id="formulario" class="inputs">
+                
+                <input type="hidden" id="id_livro_selecionado">
+
+                <div class="input">
+                    <label for="data_emprestimo">Data do Empréstimo</label>
+                    <input id="data_emprestimo" name="data_emprestimo" type="date">
+                </div>
+                <div class="input">
+                    <label for="data_devolucao_p">Data de Devolução Prevista</label>
+                    <input id="data_devolucao_p" name="data_devolucao_p" type="date">
+                </div>
+                
+                <div class="modalButao">
+                    <button class="cancelar" onclick="fecharModal(event)">Cancelar</button>
+                    <button class="criar" onclick="solicitarEmprestimo(event)">Solicitar</button>
+                </div>
+            </form>
         </div>
-
-        <hr class="linha"></hr>
-
-        <form id="formulario" class="inputs">
-
-            <div class="input">
-                <label for="data_emprestimo">Data do Empréstimo</label>
-                <input id="data_emprestimo" name="data_emprestimo" type="date">
-            </div>
-            <div class="input">
-                <label  for="data_devolucao_p">Data devolução prevista</label>
-                <input  id="data_devolucao_p" name="data_devolucao_p" type="date">
-            </div>
-            <div class="input">
-                <label for="data_devolucao_r">Data de Devolução</label>
-                <input  id="data_devolucao_r" name="data_devolucao_r" type="date">
-            </div>
-            <div class="modalButao">
-                <button class="cancelar" onclick="fecharModal(event)">Cancelar</button>
-                <button class="criar" onclick="criarLivro(event)">Criar</button>
-            </div>
-        </form>
     </div>
-    </div>
-    
+
     <div class="navbar">
         <div class="logoNavbar">
             <img src="/frontend/img/logo.svg" alt="logo">
@@ -53,29 +52,29 @@
             <p class="subtitle">Painel do leitor</p>
         </div>
         <a onclick="telaAtiva('tabela1', this)" class="ativo" href="#">Livros</a>
-        <a onclick="telaAtiva('tabela2', this)" href="#">Emprestimos</a>
-        <a onclick="telaAtiva()" href="#">Sair</a>
-        </div>
+        <a onclick="telaAtiva('tabela2', this)" href="#">Empréstimos</a>
+        <a href="/frontend/index.html">Sair</a>
+    </div>
 
     <div class="content">
 
         <div>
-            <h1>Bem-vindo, <span style="color: rgb(243, 213, 45);">Leitor</span></h1>
+            <h1>Bem-vindo, <span style="color: rgb(243, 213, 45);" id="nomeLeitor">Leitor</span></h1>
             <p style="color: rgba(240, 248, 255, 0.249);">Aqui você pode acessar seus livros, histórico de empréstimos e muito mais.</p>
         </div>
 
-
         <div class="fundoTabela">
             <div class="pesquisaButao">
-                <input onclick="" type="text" placeholder="Pesquise livros...">
+               
+                <input id="campoBusca" type="text" placeholder="Pesquise livros..." oninput="buscarLivros()">
             </div>
 
             <div class="tabela-container" id="tabela1">
                 <table>
                     <thead>
                         <tr class="tulosTabela">
-                            <th id="id">ID</th>
-                            <th>Titulo</th>
+                            <th>ID</th>
+                            <th>Título</th>
                             <th>Autor</th>
                             <th>Ano</th>
                             <th>Disponível</th>
@@ -86,26 +85,23 @@
                 </table>
             </div>
 
-              <div class="tabela-container" id="tabela2" style="display: none;">
-      <table>
-             <thead>
-              <tr class="titulosTabela">
-                <th>Leitor</th>
-                <th>Livro</th>
-                <th>Data do Empréstimo</th>
-                <th>Data de Devolução P</th>
-                <th>Data de Devolução R</th>
-                <th>Ação</th>
-              </tr>
-            </thead>
-            <tbody id="tabelaEmprestimo"></tbody>
-     </table>
-    </div>
+            <div class="tabela-container" id="tabela2" style="display: none;">
+                <table>
+                    <thead>
+                        <tr class="titulosTabela">
+                            <th>Leitor</th>
+                            <th>Livro</th>
+                            <th>Data do Empréstimo</th>
+                            <th>Devolução Prevista</th>
+                            <th>Devolução Real</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaEmprestimo"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-
-
 </body>
-
 </html>
