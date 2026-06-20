@@ -12,19 +12,21 @@ function telaAtiva(tela, linkClicado) {
     if (tela === 'tabela2') emprestimos();
 }
 
-function abrirModal() {
+function abrirModal(){
     document.getElementById('livroEditandoId').value = '';
     document.getElementById('formulario').reset();
     document.querySelector('#modal h1').textContent = 'Cadastro de Livro';
     document.querySelector('#modal .criar').textContent = 'Salvar';
     document.getElementById('modal').style.display = 'flex';
-    document.getElementById('fundoModal').style.display = 'flex';
+    document.getElementById("fundoModal").style.display = "flex";
+document.getElementById("modal").style.display = "flex";
 }
 
 function fecharModal(event) {
     event.preventDefault();
     document.getElementById('modal').style.display = 'none';
-    document.getElementById('fundoModal').style.display = 'none';
+   document.getElementById("fundoModal").style.display = "none";
+   document.getElementById("modal").style.display = "none";
     document.getElementById('formulario').reset();
 }
 

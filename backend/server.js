@@ -128,15 +128,32 @@ app.put('/editar/:id', (req, res) => {
 app.delete('/livro/:id', (req, res) => {
     const { id } = req.params;
 
-    db.query('DELETE FROM livros WHERE id = ?', [id], (err) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).json({ erro: 'Erro ao deletar livro' });
-        }
-        res.status(200).json({ message: 'Livro deletado com sucesso' });
-    });
-});
+    db.query(
+        'DELETE FROM emprestimos WHERE id_livro = ?',
+        [id],
+        (err) => {
+            if (err) {
+                console.error('Erro ao deletar empréstimos:', err);
+                return res.status(500).json({ erro: err.message });
+            }
 
+            db.query(
+                'DELETE FROM livros WHERE id = ?',
+                [id],
+                (err2) => {
+                    if (err2) {
+                        console.error('Erro ao deletar livro:', err2);
+                        return res.status(500).json({ erro: err2.message });
+                    }
+
+                    res.status(200).json({
+                        message: 'Livro deletado com sucesso'
+                    });
+                }
+            );
+        }
+    );
+});
 
 app.get('/emprestimos', (req, res) => {
     const { leitor_id } = req.query;
